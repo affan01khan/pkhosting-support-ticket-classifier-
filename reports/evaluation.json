@@ -1,0 +1,33 @@
+{
+  "dataset_rows": 120,
+  "train_rows": 90,
+  "held_out_test_rows": 30,
+  "random_state": 42,
+  "category_accuracy": 1.0,
+  "priority_accuracy": 1.0,
+  "category_classification_report": {
+    "Billing": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 8.0},
+    "Domain": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 7.0},
+    "Email": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 8.0},
+    "Technical Issue": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 7.0},
+    "accuracy": 1.0,
+    "macro avg": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 30.0},
+    "weighted avg": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 30.0}
+  },
+  "priority_classification_report": {
+    "High": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 8.0},
+    "Low": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 8.0},
+    "Medium": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 14.0},
+    "accuracy": 1.0,
+    "macro avg": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 30.0},
+    "weighted avg": {"precision": 1.0, "recall": 1.0, "f1-score": 1.0, "support": 30.0}
+  },
+  "category_confusion_matrix": {
+    "labels": ["Billing", "Domain", "Email", "Technical Issue"],
+    "matrix": [[8, 0, 0, 0], [0, 7, 0, 0], [0, 0, 8, 0], [0, 0, 0, 7]]
+  },
+  "priority_confusion_matrix": {
+    "labels": ["High", "Low", "Medium"],
+    "matrix": [[8, 0, 0], [0, 8, 0], [0, 0, 14]]
+  }
+}
