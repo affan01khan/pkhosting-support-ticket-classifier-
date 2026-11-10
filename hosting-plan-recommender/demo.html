@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PKHosting Plan Recommender</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172b4d;font:16px/1.5 Arial,sans-serif}
+.wrap{max-width:760px;margin:36px auto;padding:0 16px}.hero{background:#102b50;color:#fff;padding:28px;border-radius:16px;margin-bottom:20px}
+h1{margin:0 0 6px;font-size:28px}.hero p{margin:0;color:#dce8f6}
+.card{background:white;border:1px solid #dce4ef;border-radius:14px;padding:24px;box-shadow:0 4px 18px #102b500c}
+label{display:block;font-weight:700;margin:18px 0 7px}select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;font-size:15px}
+button{margin-top:22px;width:100%;border:0;border-radius:9px;background:#4f46e5;color:white;padding:14px;font-size:16px;font-weight:700;cursor:pointer}
+.result{display:none;margin-top:20px;padding:20px;border:1px solid #b7d9c4;background:#f0fdf4;border-radius:12px}
+.price{font-size:26px;font-weight:700;color:#102b50}.muted{color:#64748b;font-size:14px}
+a{color:#245bb5}ul{padding-left:20px}
+</style>
+</head>
+<body><main class="wrap">
+<div class="hero"><h1>Find the right hosting plan</h1><p>Answer four quick questions and get a recommendation for your website.</p></div>
+<div class="card">
+<p>Tell us a little about your website. You can review the recommendation before ordering.</p>
+<form id="finder">
+<label for="type">1. What type of website are you planning to host?</label>
+<select id="type"><option>Personal blog or portfolio</option><option>Business or company website</option><option>Online store or booking website</option><option>Agency or software house websites</option><option>Web application or custom project</option></select>
+<label for="count">2. How many websites do you need to host?</label>
+<select id="count"><option>1 website</option><option>2–5 websites</option><option>6–10 websites</option><option>More than 10 websites</option></select>
+<label for="storage">3. How much storage do you expect to need?</label>
+<select id="storage"><option>Up to 5 GB</option><option>6–25 GB</option><option>26–50 GB</option><option>More than 50 GB</option><option>Not sure yet</option></select>
+<label for="workload">4. Which option best describes your expected traffic or technical needs?</label>
+<select id="workload"><option>New website or low traffic</option><option>Regular business traffic</option><option>Busy website or resource-heavy workload</option><option>I need root access, server control or a custom server setup</option></select>
+<button type="submit">Recommend a plan</button>
+</form>
+<div class="result" id="result" aria-live="polite"></div>
+</div>
+<p class="muted">Recommendations are based on published shared-hosting allowances. Bandwidth is unmetered subject to fair-use terms. Prices and packages may change.</p>
+<p><a href="https://www.pkhosting.com/hosting/">View PKHosting hosting plans</a> · <a href="https://www.pkhosting.com/pricing/">View all prices</a></p>
+</main>
+<script>
+const plans={
+"Personal Hosting":{monthly:699,annual:6990,sites:1,storage:5,emails:5,backup:"Daily backups with 1-day retention",features:["Free migration","Free SSL","WordPress setup help","5 email accounts"],best:"One personal website, portfolio, blog or small starter site"},
+"Business Hosting":{monthly:1999,annual:19990,sites:5,storage:25,emails:25,backup:"Daily backups with 3-day retention",features:["Free migration","Free SSL","Managed DNS help","Priority setup","25 email accounts"],best:"Growing businesses and small teams hosting several websites"},
+"Professional Hosting":{monthly:3999,annual:39990,sites:10,storage:50,emails:50,backup:"Daily backups with 5-day retention",features:["Free migration","Free SSL","Priority support","Developer-friendly setup","50 email accounts"],best:"Software houses, agencies and companies managing multiple websites"}
+};
+document.getElementById("finder").addEventListener("submit",e=>{
+e.preventDefault();
+const type=document.getElementById("type").value,count=document.getElementById("count").value,storage=document.getElementById("storage").value,work=document.getElementById("workload").value;
+let name,reason;
+if(count==="More than 10 websites"||storage==="More than 50 GB"||work.startsWith("I need root")||type==="Web application or custom project"){
+name="Consultation";reason="Your requirements may be beyond standard shared hosting. Contact PKHosting to discuss a suitable Cloud VPS or dedicated server option.";
+}else if(count==="6–10 websites"||storage==="26–50 GB"||work==="Busy website or resource-heavy workload"||type==="Agency or software house websites"){
+name="Professional Hosting";reason="You indicated a need for several websites, more storage or a heavier workload. Professional Hosting offers the largest shared plan allowance.";
+}else if(count==="2–5 websites"||storage==="6–25 GB"||work==="Regular business traffic"||type==="Business or company website"||type==="Online store or booking website"){
+name="Business Hosting";reason="Your answers point to a growing website or business that may need more room than a starter plan. Business Hosting supports up to five websites and 25 GB SSD storage.";
+}else{name="Personal Hosting";reason="Your answers fit a small or new website with modest storage needs. Personal Hosting is the entry-level option for one website."}
+const box=document.getElementById("result");box.style.display="block";
+if(name==="Consultation"){box.innerHTML="<h2>Recommended next step: Contact PKHosting</h2><p>"+reason+"</p><p><a href='https://www.pkhosting.com/pricing/'>Explore VPS and dedicated options</a></p>";}
+else{const p=plans[name];box.innerHTML="<h2>Your recommendation: "+name+"</h2><div class='price'>Rs. "+p.monthly.toLocaleString("en-PK")+" / month</div><p class='muted'>Annual billing: Rs. "+p.annual.toLocaleString("en-PK")+" per year. Confirm current terms at checkout.</p><p>"+reason+"</p><p><b>Best for:</b> "+p.best+"</p><p><b>Included:</b> Up to "+p.sites+" website(s), "+p.storage+" GB SSD storage, "+p.emails+" email accounts.</p><ul>"+p.features.map(x=>"<li>"+x+"</li>").join("")+"</ul><p>"+p.backup+"</p><p><a href='https://www.pkhosting.com/hosting/'>View plan details</a></p>";}
+box.scrollIntoView({behavior:"smooth",block:"start"});
+});
+</script></body></html>
